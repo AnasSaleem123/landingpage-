@@ -128,3 +128,28 @@
 .animate-fadeIn {
   animation: fadeIn 0.55s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
+
+/* Infinite marquee animations */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 35s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 35s linear infinite;
+}
+
+/* Marquee gradient fade mask on left and right sides */
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}

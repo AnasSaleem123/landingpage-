@@ -80,17 +80,28 @@ export default function App() {
           onOpenDemo={handleOpenDemo}
           onOpenAuth={handleOpenAuth}
         />
-        <HowItWorks />
+        {/* 1. Features & Capabilities */}
         <Features />
+        <Testimonials />
         <ImageToUI />
         <MultiAgentWorkflow />
         <InfraSection onOpenAuth={handleOpenAuth} />
         <WhatYouCanBuild />
+
+        {/* 2. Workflow / How It Works */}
+        <HowItWorks />
+
+        {/* 3. Showcase Platform Examples & Social Proof */}
         <ShowcaseSection />
         <CompareSection onOpenAuth={handleOpenAuth} />
-        <Testimonials />
+
+        {/* 4. Pricing & Plans */}
         <Pricing onOpenAuth={handleOpenAuth} />
+
+        {/* 5. Frequently Asked Questions */}
         <FAQ />
+
+        {/* Action Call */}
         <FinalCTA 
           onOpenAuth={handleOpenAuth}
           onOpenDemo={handleOpenDemo}

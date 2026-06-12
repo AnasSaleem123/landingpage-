@@ -1,4 +1,5 @@
 import React from 'react';
+import { Play } from 'lucide-react';
 import AgentTerminal from './AgentTerminal';
 import neoneBg from '../neone-bg.png';
 
@@ -120,9 +121,9 @@ export default function LandingHero({ onOpenDemo, onOpenAuth }) {
 
             <button
               onClick={onOpenDemo}
-              className="font-display font-bold text-sm px-7 py-3 rounded-xl bg-[#030822]/45 hover:bg-[#060d33]/65 text-white/85 border border-white/10 backdrop-blur-md active:scale-95 transition-all duration-200 focus:outline-none flex items-center gap-2"
+              className="font-display font-bold text-sm px-7 py-3 rounded-xl border border-[#bbdcfd]/35 text-[#bbdcfd] bg-transparent hover:bg-[#bbdcfd]/10 hover:border-[#bbdcfd]/50 active:scale-95 transition-all duration-200 focus:outline-none flex items-center justify-center gap-2"
             >
-              Watch Demo
+              <Play className="w-3.5 h-3.5 fill-current" /> Watch Demo
             </button>
           </div>
         </div>

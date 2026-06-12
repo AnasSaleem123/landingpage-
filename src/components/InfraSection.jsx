@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Terminal, Cpu, Database, Eye, FileCode, Check } from 'lucide-react';
 
 /* ── Animated SVG Globe / Network ── */
 function GlobeNetwork() {
@@ -123,15 +124,57 @@ function AnimatedCounter({ target, suffix = '' }) {
   );
 }
 
+const LIFECYCLE_STAGES = [
+  {
+    id: "vision",
+    tab: "01/ Vision Scan",
+    title: "Multimodal Layout Scanner",
+    icon: <Eye className="w-4 h-4 text-coral-500" />,
+    desc: "Drop wireframe sketches, Figma mockups, or drawing uploads directly. DevAI's vision model audits spacings, margins, and alignments to translate visual inputs into a clean component scaffold.",
+    cmd: "devai scan --input ./layout-mockup.png",
+    stat: "Vision Model Running - 99.4% layout layout transpiler index"
+  },
+  {
+    id: "schema",
+    tab: "02/ Schema Sync",
+    icon: <Database className="w-4 h-4 text-coral-500" />,
+    title: "Autonomous Database & Endpoint Mapping",
+    desc: "Specify requirements to synthesize backend REST endpoints, model Express API routers, generate database schema configurations, and establish database entity connections automatically.",
+    cmd: "devai db:sync --relations --provider postgresql",
+    stat: "API Controllers Synthesized - 0 compilation errors"
+  },
+  {
+    id: "sandbox",
+    tab: "03/ Sandbox Run",
+    icon: <Cpu className="w-4 h-4 text-coral-500" />,
+    title: "Isolated Live Previews",
+    desc: "Every edit compiles instantly inside temporary sandboxed web environments. Click through transactions, adjust inputs, and verify state actions live before downloading code.",
+    cmd: "devai run:container --port 3000 --hot-reload",
+    stat: "Vite Sandbox Live on port 3000 - hot-reload active"
+  },
+  {
+    id: "export",
+    tab: "04/ Code Export",
+    icon: <FileCode className="w-4 h-4 text-coral-500" />,
+    title: "Clean Production Bundling",
+    desc: "No proprietary wrapper constraints. Download a standard zip containing clean React scripts, Vite settings, and PostCSS configurations, fully optimized for your development setup.",
+    cmd: "devai export --bundle --format react-vite-zip",
+    stat: "Production Bundle generated - 100% code ownership"
+  }
+];
+
 export default function InfraSection({ onOpenAuth }) {
   const headRef = useRef(null);
   const [headVisible, setHeadVisible] = useState(false);
+  const [activeStage, setActiveStage] = useState("vision");
 
   useEffect(() => {
     const observer = new IntersectionObserver(([e]) => { if (e.isIntersecting) setHeadVisible(true); }, { threshold: 0.2 });
     if (headRef.current) observer.observe(headRef.current);
     return () => observer.disconnect();
   }, []);
+
+  const stage = LIFECYCLE_STAGES.find(s => s.id === activeStage);
 
   return (
     <section className="relative py-28 px-4 sm:px-6 lg:px-8 border-t border-slate-900/60 select-none overflow-hidden"
@@ -142,18 +185,18 @@ export default function InfraSection({ onOpenAuth }) {
         style={{ background: 'radial-gradient(ellipse, rgba(187,220,253,0.05) 0%, transparent 70%)', filter: 'blur(40px)' }} />
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
-          {/* Left: Headline + CTAs */}
+          {/* Left Column: Interactive Selector + Stats */}
           <div
             ref={headRef}
-            className={`transition-all duration-700 ${headVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
+            className={`lg:col-span-7 transition-all duration-700 space-y-6 text-left ${headVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
           >
-            <span className="text-[10px] uppercase font-bold tracking-widest text-brand border border-brand/20 px-3 py-1 bg-brand/5 rounded-full inline-block">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-brand border border-brand/20 px-3.5 py-1 bg-brand/5 rounded-full inline-block">
               <span className="text-brand-gradient">LIFECYCLE</span>
             </span>
 
-            <h2 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white mt-6 leading-[1.05] tracking-tight">
+            <h2 className="font-display font-black text-3xl sm:text-5xl lg:text-6xl text-white mt-4 leading-[1.08] tracking-tight">
               From Prompt to
               <br />
               <span className="text-brand-gradient">
@@ -161,63 +204,75 @@ export default function InfraSection({ onOpenAuth }) {
               </span>
             </h2>
 
-            <p className="text-slate-400 text-sm font-light leading-relaxed mt-6 max-w-md">
-              DevAI automates the entire software cycle. Describe your application in plain English, and our collaborative agents will scaffold, compile, and host a fully working sandboxed prototype in seconds.
+            <p className="text-slate-400 text-sm font-light leading-relaxed max-w-lg">
+              DevAI automates the entire software cycle. Click the stages below to explore our interactive compilation workflow steps in real-time.
             </p>
 
-            {/* Bullet points list */}
-            <ul className="mt-8 space-y-3.5 text-xs text-slate-300 font-medium">
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand" />
-                Generate components from design wireframes or images
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand" />
-                Synthesize database models, logic states, and API keys
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand" />
-                Preview code outputs live in an interactive sandbox
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand" />
-                Export a production-ready React, Vite, and Tailwind CSS codebase
-              </li>
-            </ul>
+            {/* Interactive Lifecycle Stage Selection Tabs */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              {LIFECYCLE_STAGES.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => setActiveStage(s.id)}
+                  className={`px-3.5 py-2 rounded-xl border text-[11px] font-bold tracking-wide transition-all duration-300 focus:outline-none ${
+                    activeStage === s.id
+                      ? 'bg-coral-500/10 border-coral-500/35 text-coral-400 shadow-[0_0_12px_rgba(255,90,95,0.12)]'
+                      : 'bg-[#010412]/60 border-slate-900 text-slate-500 hover:text-slate-350 hover:border-slate-800'
+                  }`}
+                >
+                  {s.tab}
+                </button>
+              ))}
+            </div>
+
+            {/* Stage Detail card with Shell emulator */}
+            <div className="p-6 rounded-2xl bg-[#030712]/55 border border-slate-850 space-y-4 animate-fadeIn">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-coral-500/10 flex items-center justify-center border border-coral-500/20 shrink-0">
+                  {stage.icon}
+                </div>
+                <h3 className="text-sm sm:text-base font-extrabold text-white leading-tight">
+                  {stage.title}
+                </h3>
+              </div>
+              
+              <p className="text-xs text-slate-400 font-light leading-relaxed">
+                {stage.desc}
+              </p>
+
+              {/* Console simulator window */}
+              <div className="bg-[#010412] rounded-xl p-4 border border-slate-900 font-mono text-[10px] space-y-1.5">
+                <div className="text-slate-600 flex justify-between select-none">
+                  <span>bash: devai-compiler</span>
+                  <span className="text-[8px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded font-bold uppercase">compiled</span>
+                </div>
+                <div className="text-slate-200 font-bold leading-normal">$ {stage.cmd}</div>
+                <div className="text-emerald-400 text-[9px] mt-1.5 flex items-center gap-2 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                  {stage.stat}
+                </div>
+              </div>
+            </div>
 
             {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-4 mt-10">
+            <div className="grid grid-cols-2 gap-4 pt-2">
               {STATS.map(({ label, value, sub }) => (
-                <div key={sub} className="rounded-2xl p-4 border border-slate-800/60 hover:border-brand/20 transition-colors"
-                  style={{ background: 'rgba(10,15,46,0.7)' }}>
+                <div key={sub} className="rounded-2xl p-4 bg-[#030712]/55 border border-slate-850 hover:border-coral-500/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(255,90,95,0.04)]">
                   <div className="text-[9px] text-slate-500 uppercase tracking-widest font-bold mb-1">{sub}</div>
                   <div className="text-xl font-black text-white leading-none">
                     <AnimatedCounter target={value} />
                   </div>
-                  <div className="text-[9px] text-slate-500 mt-1">{label}</div>
+                  <div className="text-[9px] text-slate-500 mt-1 font-light leading-normal">{label}</div>
                 </div>
               ))}
             </div>
-
-            <button 
-              onClick={() => onOpenAuth && onOpenAuth('signup')}
-              className="mt-10 font-display font-bold text-xs px-6 py-3.5 rounded-lg active:scale-95 transition-all duration-200 focus:outline-none"
-              style={{
-                background: '#bbdcfd',
-                color: '#050a1e',
-                boxShadow: '0 4px 16px rgba(187,220,253,0.25)',
-              }}
-              onMouseEnter={e => e.target.style.background = '#e0f2fe'}
-              onMouseLeave={e => e.target.style.background = '#bbdcfd'}
-            >
-              Start Building Now
-            </button>
           </div>
 
-          {/* Right: Globe */}
-          <div className={`transition-all duration-700 delay-200 ${headVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+          {/* Right Column: Globe (Reverted back to SVG Globe Network) */}
+          <div className={`lg:col-span-5 relative transition-all duration-700 delay-200 ${headVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <GlobeNetwork />
           </div>
+
         </div>
       </div>
     </section>

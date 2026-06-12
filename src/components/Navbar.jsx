@@ -35,29 +35,31 @@ export default function Navbar({ onOpenAuth, onOpenContact, onOpenDemo }) {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="grid grid-cols-3 items-center h-16 w-full">
 
-          {/* ── Logo ── */}
-          <div
-            className="flex-shrink-0 flex items-center gap-2 cursor-pointer group"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            {/* Custom DevAI Sparkle Icon */}
-            <div className="flex items-center gap-0.5 text-glow-blue">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-brand" style={{ filter: 'drop-shadow(0 0 8px rgba(187,220,253,0.7))' }}>
-                <path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z" />
-              </svg>
-            </div>
-            <span
-              className="font-display font-black text-sm uppercase tracking-widest text-white"
-              style={{ letterSpacing: '0.25em' }}
+          {/* ── Column 1: Logo ── */}
+          <div className="flex justify-start">
+            <div
+              className="flex-shrink-0 flex items-center gap-2 cursor-pointer group"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              DevAI
-            </span>
+              {/* Custom DevAI Sparkle Icon */}
+              <div className="flex items-center gap-0.5 text-glow-blue">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-brand" style={{ filter: 'drop-shadow(0 0 8px rgba(187,220,253,0.7))' }}>
+                  <path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z" />
+                </svg>
+              </div>
+              <span
+                className="font-display font-black text-sm uppercase tracking-widest text-white"
+                style={{ letterSpacing: '0.25em' }}
+              >
+                DevAI
+              </span>
+            </div>
           </div>
 
-          {/* ── Nav Links (center) ── */}
-          <div className="hidden md:flex items-center space-x-9">
+          {/* ── Column 2: Nav Links (center) ── */}
+          <div className="hidden md:flex justify-center items-center space-x-9">
             <a
               href="#features"
               className="font-display text-xs font-semibold uppercase tracking-wider transition-colors duration-200"
@@ -105,8 +107,8 @@ export default function Navbar({ onOpenAuth, onOpenContact, onOpenDemo }) {
             </a>
           </div>
 
-          {/* ── Right CTAs ── */}
-          <div className="flex items-center gap-6">
+          {/* ── Column 3: Right CTAs ── */}
+          <div className="flex justify-end items-center gap-6">
             {/* "Sign in" link */}
             <button
               onClick={() => onOpenAuth('login')}

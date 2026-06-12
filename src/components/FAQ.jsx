@@ -40,63 +40,67 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="relative py-24 px-4 sm:px-6 lg:px-8 bg-space-950 border-t border-slate-900/60 select-none">
-      {/* Soft background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand/5 rounded-full filter blur-[120px] pointer-events-none" />
+    <section id="faq" className="relative py-28 px-4 sm:px-6 lg:px-8 bg-space-950 border-t border-slate-900/60 select-none overflow-hidden">
+      {/* Ambient glow in background */}
+      <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-brand/5 rounded-full filter blur-[130px] pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Section Title */}
-        <div className="text-center mb-16">
-          <span className="text-[10px] uppercase font-bold tracking-widest text-brand border border-brand/20 px-3 py-1 bg-brand/5 rounded-full inline-block">
-            <span className="text-brand-gradient">QUESTIONS</span>
-          </span>
-          <h2 className="font-display font-black text-3xl sm:text-5xl text-white mt-4 tracking-tight leading-tight">
-            Frequently Asked Questions
-          </h2>
-          <p className="font-body text-slate-400 text-sm max-w-xl mx-auto mt-4 font-light leading-relaxed">
-            Everything you need to know about DevAI's multi-agent build system.
-          </p>
-        </div>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          
+          {/* Left Column: Heading */}
+          <div className="lg:col-span-5 text-left space-y-4">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-brand border border-brand/20 px-3.5 py-1 bg-brand/5 rounded-full inline-block">
+              <span className="text-brand-gradient">QUESTIONS</span>
+            </span>
+            <h2 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-[1.15]">
+              Frequently
+              <br />
+              asked questions
+            </h2>
+            <p className="font-body text-slate-400 text-sm font-light leading-relaxed max-w-sm">
+              Have questions about how DevAI constructs full-stack applications, isolated sandboxes, or custom designs? We've compiled detailed answers here.
+            </p>
+          </div>
 
-        {/* Accordions List */}
-        <div className="space-y-4">
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div 
-                key={idx}
-                className="rounded-2xl border border-slate-800/80 bg-space-900/20 hover:border-slate-700/60 transition-colors overflow-hidden"
-              >
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
-                >
-                  <span className="text-sm font-bold text-white tracking-tight leading-snug">
-                    {faq.q}
-                  </span>
-                  <ChevronDown 
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 shrink-0 ml-4 ${
-                      isOpen ? 'rotate-180 text-brand' : ''
-                    }`}
-                  />
-                </button>
-
-                {/* Transition container */}
+          {/* Right Column: Accordions list */}
+          <div className="lg:col-span-7 w-full divide-y divide-slate-800/80">
+            {faqs.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
                 <div 
-                  className={`transition-all duration-300 ease-in-out ${
-                    isOpen ? 'max-h-40 border-t border-slate-800/50' : 'max-h-0'
-                  } overflow-hidden`}
+                  key={idx}
+                  className="py-5 first:pt-0 transition-colors duration-300"
                 >
-                  <div className="p-6 text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
-                    {faq.a}
+                  <button
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full flex items-center justify-between text-left focus:outline-none group py-1"
+                  >
+                    <span className="text-sm sm:text-base font-bold text-white tracking-tight group-hover:text-brand transition-colors duration-200">
+                      {faq.q}
+                    </span>
+                    <ChevronDown 
+                      className={`w-4 h-4 text-slate-400 transition-transform duration-350 shrink-0 ml-4 group-hover:text-brand ${
+                        isOpen ? 'rotate-180 text-brand' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {/* Collapsible Answer */}
+                  <div 
+                    className={`transition-all duration-350 ease-in-out ${
+                      isOpen ? 'max-h-[160px] opacity-100 mt-4' : 'max-h-0 opacity-0'
+                    } overflow-hidden`}
+                  >
+                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
+                      {faq.a}
+                    </p>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
 
+        </div>
       </div>
     </section>
   );

@@ -8,6 +8,11 @@ export default {
     extend: {
       colors: {
         brand: "#bbdcfd",
+        coral: {
+          400: "#ff7b7f",
+          500: "#ff5a5f",
+          600: "#e03e43",
+        },
         space: {
           950: "#010412", // Exact dark purple-blue from neone-bg.png and swatch
           900: "#030822", // Lighter space navy

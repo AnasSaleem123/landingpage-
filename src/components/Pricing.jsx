@@ -97,13 +97,13 @@ export default function Pricing({ onOpenAuth }) {
                   </ul>
                 </div>
 
-                {/* Purchase Button Action */}
+                {/* Purchase Button Action (Inert/Unclickable) */}
                 <button
-                  onClick={() => onOpenAuth('signup')}
-                  className={`w-full py-3 rounded-xl text-xs font-bold font-display transition-all duration-300 mt-8 focus:outline-none ${
+                  disabled
+                  className={`w-full py-3 rounded-xl text-xs font-bold font-display mt-8 pointer-events-none select-none opacity-65 focus:outline-none ${
                     isPopular
-                      ? 'bg-[#bbdcfd] text-[#010412] hover:bg-[#e0f2fe] shadow-[0_4px_20px_rgba(187,220,253,0.25)]'
-                      : 'bg-[#010412] text-slate-300 border border-slate-800 hover:bg-slate-900 hover:text-white hover:border-slate-700'
+                      ? 'bg-[#bbdcfd] text-[#010412] shadow-none'
+                      : 'bg-[#010412] text-slate-450 border border-slate-850'
                   }`}
                 >
                   {plan.cta}

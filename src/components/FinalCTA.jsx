@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Play } from 'lucide-react';
 
 export default function FinalCTA({ onOpenAuth, onOpenDemo }) {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email) return;
+    // Simulate API request
+    setSubscribed(true);
+    setEmail('');
+  };
+
   return (
     <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-space-950 border-t border-slate-900/60 select-none overflow-hidden">
       {/* Background celestial glows */}
@@ -29,7 +40,7 @@ export default function FinalCTA({ onOpenAuth, onOpenDemo }) {
           </p>
 
           {/* Buttons */}
-          <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+          <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 border-b border-slate-900/60 pb-12">
             
             {/* Primary button: Start Building */}
             <button
@@ -47,6 +58,41 @@ export default function FinalCTA({ onOpenAuth, onOpenDemo }) {
               <Play className="w-3.5 h-3.5 fill-current" /> Watch Demo
             </button>
 
+          </div>
+
+          {/* Subscription Letter Form */}
+          <div className="mt-12 max-w-md mx-auto space-y-4 text-left">
+            <div className="text-center sm:text-left">
+              <h3 className="font-display font-extrabold text-xs text-white uppercase tracking-widest">
+                Subscribe to our developer newsletter
+              </h3>
+              <p className="text-[11px] text-slate-400 mt-1.5 font-light leading-relaxed">
+                Receive weekly updates on autonomous multi-agent compilation, vision models benchmarks, and raw template source releases.
+              </p>
+            </div>
+            
+            {subscribed ? (
+              <div className="p-3.5 rounded-xl border border-coral-500/25 bg-coral-500/10 text-coral-400 font-display font-bold text-xs text-center animate-fadeIn">
+                ✓ Welcome to the cohort! Check your email for early developer sandbox access credentials.
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 mt-2 select-text">
+                <input 
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your developer email..."
+                  className="flex-1 bg-[#010412]/80 border border-slate-800/80 focus:border-[#bbdcfd]/50 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-0 shadow-inner"
+                />
+                <button 
+                  type="submit"
+                  className="px-6 py-3 rounded-xl bg-coral-500 hover:bg-coral-600 text-white font-display font-bold text-xs transition-colors duration-200 active:scale-95 focus:outline-none whitespace-nowrap shadow-[0_4px_12px_rgba(255,90,95,0.15)]"
+                >
+                  Subscribe
+                </button>
+              </form>
+            )}
           </div>
 
         </div>
